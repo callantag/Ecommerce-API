@@ -2,7 +2,6 @@ const Product = require("./../models/Product");
 
 module.exports.getAllActive = (req,res) => {	
 	Product.find({isActive: true}).then(products => {
-		// console.log(products)
 		return res.send(products)
 	})
 };
@@ -12,10 +11,7 @@ module.exports.getAllProducts = (req,res) => {
 };
 
 module.exports.getProduct = (req,res) => {
-	// /:productID
-	// console.log(req.params.productId)
 	Product.findById(req.params.productId).then(product => {
-		console.log(product)
 		return res.send(product)
 
 	})
@@ -49,9 +45,7 @@ module.exports.updateProduct = (req,res) => {
 
 module.exports.archiveProduct = (req,res) => {
 	let updateActive = {
-
 		isActive: false
-
 	}
 
 	Product.findByIdAndUpdate(req.params.productId,updateActive)

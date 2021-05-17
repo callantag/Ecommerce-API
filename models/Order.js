@@ -2,17 +2,24 @@ const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
 	
-	totalAmount : { type : Number , required : true },
-	purchasedOn :  { type : Date , default : new Date() }, 
-	userId : { type : String , required : true },
+	totalAmount : { type : Number , default : 3 }, 
+	userId : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref: "User",
+		required: true
+	},
 	products : [
 		{
-			productId :  { type : String , required : true },
-			quantity :  { type : Number , default : 0 },
-			subtotal :  { type : Number , default : 0 }
+			productId :  {
+				type : mongoose.Schema.Types.ObjectId,
+				ref: "Product",
+				required: true
+			},
+			quantity :  { type : Number , default : 1 },
+			subtotal :  { type : Number , default : 2 }
 		}
 	]
-});
+}, {timestamps:{createdAt: "purchasedOn"}});
 
 module.exports = mongoose.model( "Order" , OrderSchema );
 

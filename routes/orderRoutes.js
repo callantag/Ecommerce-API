@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const { 
 	createOrder, 
-	getUserOrders, 
+	getOrders, 
 	getAllOrders
 } = require("./../controllers/OrderController");
 const { verify , verifyNotAdmin, verifyAdmin } = require("./../auth");
 
 router.post("/", verify, verifyNotAdmin, createOrder);
 
-router.get("/:userId", getUserOrders);
+router.get("/:userId", verify, getOrders);
 
 router.get("/all", verify, verifyAdmin, getAllOrders);
 

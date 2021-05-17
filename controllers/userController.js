@@ -15,7 +15,7 @@ module.exports.register = (req,res,next) => {
 		firstName : req.body.firstName,
 		lastName : req.body.lastName,
 		email : req.body.email,
-		password : req.body.password,
+		password : hash,
 		mobileNo : req.body.mobileNo
 	})
 
@@ -46,7 +46,7 @@ module.exports.login = (req,res) => {
 // Set user as admin (Admin only)
 module.exports.setAdmin = (req,res) => {
 	let setToAdmin = {
-		isAdmin: req.body.isAdmin
+		isAdmin : true
 	}
 	User.findByIdAndUpdate(req.params.userId, setToAdmin)
 	.then(()=>res.send(true))
