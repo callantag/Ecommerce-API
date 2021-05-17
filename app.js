@@ -5,7 +5,7 @@ const app = express();
 
 const port = process.env.PORT || 4000;
 
-mongoose.connect("mongodb+srv://callantag:callantag@cluster0.uiyt6.mongodb.net/test", {
+mongoose.connect("mongodb+srv://callantag:callantag@cluster0.uiyt6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
