@@ -14,6 +14,6 @@ router.post("/login", login);
 
 router.put("/:userId/setAdmin", verify, verifyAdmin, setAdmin);
 
-router.put("/:userId/editProfile", verify, verifyNotAdmin, editProfile);
+router.put("/editProfile", verify, verifyNotAdmin, editProfile);
 
 module.exports = router;

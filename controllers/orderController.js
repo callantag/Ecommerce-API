@@ -5,7 +5,7 @@ module.exports.createOrder = (req,res) => {
 	console.log(req.body.productId)
 	Order.create({
 		userId : req.user.id,
-		courseId : req.body.productId
+		productId : req.body.productId
 	})
 	.then( order => {
 		res.send(order)

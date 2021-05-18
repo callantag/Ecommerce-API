@@ -62,7 +62,7 @@ module.exports.editProfile = (req,res) => {
 		password : req.body.password,
 		mobileNo : req.body.mobileNo
 	}
-	User.findByIdAndUpdate(req.params.userId, editedProfile)
+	User.findByIdAndUpdate(req.user.id, editedProfile)
 	.then(()=>res.send(true))
 	.catch(()=>res.send(false))
 }

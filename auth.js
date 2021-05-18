@@ -9,24 +9,20 @@ module.exports.createAccessToken = (user) =>{
 		email : user.email,
 		isAdmin : user.isAdmin
 	}
-	
-	// let token = jwt.sign(payload, secret)
-	// res.send({access : token})
 
 	return jwt.sign(payload, secret)
 
 }
 
 module.exports.verify = (req,res,next) =>{
-	// check if token is existing
+	
 	let token = req.headers.authorization;
 	if (typeof token === "undefined"){
 		res.send({auth:"failed"})
 	} else {
-		// extract token, remove "Bearer " from token
+		
 		token = token.slice(7,token.length)
 
-		// verify token
 		jwt.verify(token, secret, function(err, decoded) {
 			// console.log(decoded)
 		  	if( err ){
@@ -39,7 +35,6 @@ module.exports.verify = (req,res,next) =>{
 	}
 }
 
-//create middleware to verify if user is not admin:
 module.exports.verifyNotAdmin = (req,res,next) => {
 	//req.user - decode payload from token
 	if(!req.user.isAdmin) {
@@ -49,8 +44,6 @@ module.exports.verifyNotAdmin = (req,res,next) => {
 	}
 }
 
-
-//create middleware to verify if user is admin:
 module.exports.verifyAdmin = (req,res,next) => {
 	//req.user - decode payload from token
 	if(req.user.isAdmin) {
