@@ -1,27 +1,33 @@
 const mongoose = require("mongoose");
 
+const OrderProductSchema = new mongoose.Schema ({
+	productId :  {
+		type : mongoose.Schema.Types.ObjectId,
+		ref: "Product",
+		required: true
+	},
+	quantity :  { type : Number , default : 0 },
+	subtotal :  { type : Number , default : 1 }
+})
+
+const OrderProduct = mongoose.model( "OrderProduct" , OrderProductSchema );
+
+
 const OrderSchema = new mongoose.Schema({
 	
-	totalAmount : { type : Number , default : 3 }, 
+	totalAmount : { type : Number , default : 0 }, 
 	userId : {
 		type : mongoose.Schema.Types.ObjectId,
 		ref: "User",
 		required: true
 	},
-	products : [
-		{
-			productId :  {
-				type : mongoose.Schema.Types.ObjectId,
-				ref: "Product",
-				required: true
-			},
-			quantity :  { type : Number , default : 1 },
-			subtotal :  { type : Number , default : 2 }
-		}
-	]
+	products : [OrderProductSchema]
 }, {timestamps:{createdAt: "purchasedOn"}});
 
-module.exports = mongoose.model( "Order" , OrderSchema );
+const Order = mongoose.model( "Order" , OrderSchema )
+
+
+module.exports = { OrderProduct , Order }
 
 
 

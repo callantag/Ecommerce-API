@@ -24,8 +24,8 @@ module.exports.createProduct = (req,res) => {
 		price : req.body.price
 	})	
 	newProduct.save()
-	.then(() => res.send(true))
-	.catch(() => res.send(false))
+	.then(() => res.send("Product successfully created!"))
+	.catch(err => res.send(err))
 };
 
 module.exports.updateProduct = (req,res) => {	
@@ -38,8 +38,8 @@ module.exports.updateProduct = (req,res) => {
 	}
 
 	Product.findByIdAndUpdate(req.params.productId, updatedProduct)
-	.then(()=>res.send(true))
-	.catch(()=>res.send(false))
+	.then(()=>res.send("Product successfully updated!"))
+	.catch(err=>res.send(err))
 } 
 
 
@@ -49,8 +49,8 @@ module.exports.archiveProduct = (req,res) => {
 	}
 
 	Product.findByIdAndUpdate(req.params.productId,updateActive)
-	.then(()=>res.send(true))
-	.catch(()=>res.send(false))
+	.then(()=>res.send("Product successfully archived."))
+	.catch( err =>res.send(err))
 	
 };
 
