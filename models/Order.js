@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const User = require("./User");
+const Product = require("./Product");
 
 const OrderProductSchema = new mongoose.Schema ({
 	productId :  {
@@ -6,7 +8,8 @@ const OrderProductSchema = new mongoose.Schema ({
 		ref: "Product",
 		required: true
 	},
-	quantity :  { type : Number , default : 0 },
+	unitPrice : { type : Number , default : 0 },
+	quantity :  { type : Number , default : 1 },
 	subtotal :  { type : Number , default : 1 }
 })
 
