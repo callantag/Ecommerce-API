@@ -54,7 +54,7 @@ module.exports.setAdmin = (req,res) => {
 
 module.exports.getDetails = (req,res) => {
 
-	User.findById(req.params.userId, {password : 0}) 
+	User.findById(req.user.id, {password : 0}) 
 		.then(user => {
 			res.send(user)
 		})

@@ -15,7 +15,7 @@ router.post("/login", login);
 
 router.put("/:userId/setAdmin", verify, verifyAdmin, setAdmin);
 
-router.get("/details/:userId", verify, getDetails);
+router.get("/details", verify, getDetails);
 
 router.put("/editProfile", verify, verifyNotAdmin, editProfile);
 
