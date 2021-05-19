@@ -5,8 +5,8 @@ const app = express();
 
 const port = process.env.PORT || 4000;
 
-mongoose.connect("mongodb+srv://callantag:callantag@cluster0.uiyt6.mongodb.net/ecommerce-api", {
-// mongoose.connect("mongodb+srv://callantag:callantag@cluster0.uiyt6.mongodb.net/ecommerce-api?retryWrites=true&w=majority", {
+// mongoose.connect("mongodb+srv://callantag:callantag@cluster0.uiyt6.mongodb.net/ecommerce-api", {
+mongoose.connect("mongodb+srv://callantag:callantag@cluster0.uiyt6.mongodb.net/ecommerce-api?retryWrites=true&w=majority", {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
