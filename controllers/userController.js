@@ -48,7 +48,7 @@ module.exports.setAdmin = (req,res) => {
 		isAdmin : true
 	}
 	User.findByIdAndUpdate(req.params.userId, setToAdmin)
-	.then(()=>res.send("User set as admin."))
+	.then(user=>res.send(user))
 	.catch(()=>res.send("Unable to set user as admin."))
 }
 

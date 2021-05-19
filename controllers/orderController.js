@@ -47,18 +47,19 @@ module.exports.createOrder = (req,res) => {
 // };
 
 
-module.exports.getOrders = (req,res) => {
-	Order.findOne({userId: req.params.userId})
-
+module.exports.getAllOrders = (req,res) => {	
+	Order.find()
 	.then( orders => res.send(orders))
 	.catch( err => res.send( err ))
 };
 
-module.exports.getAllOrders = (req,res) => {	
-	Order.find()
-	.then( orders => res.send( orders ))
+module.exports.getOrders = (req,res) => {
+	Order.findOne({userId: req.params.userId})
+	.then( orders => res.send(orders))
 	.catch( err => res.send( err ))
-}
+};
+
+
 
 
 // Non-admin User checkout (Create Order)

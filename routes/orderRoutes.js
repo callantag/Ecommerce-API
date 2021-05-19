@@ -10,7 +10,7 @@ router.post("/", verify, verifyNotAdmin, createOrder);
 
 router.get("/:userId", verify, getOrders);
 
-router.get("/all", verify, verifyAdmin, getAllOrders);
+router.get("/", verify, verifyAdmin, getAllOrders);
 
 module.exports = router;
 
