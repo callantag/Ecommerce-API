@@ -52,6 +52,17 @@ module.exports.setAdmin = (req,res) => {
 	.catch(()=>res.send("Unable to set user as admin."))
 }
 
+module.exports.getDetails = (req,res) => {
+
+	User.findById(req.user.id, {password : 0}) 
+		.then(user => {
+			res.send(user)
+		})
+		.catch(err => {
+			res.send(err)
+		})
+}
+
 //Edit user profile (Non-Admin Only)
 module.exports.editProfile = (req,res) => {
 	let editedProfile = {

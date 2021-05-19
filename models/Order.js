@@ -8,9 +8,9 @@ const OrderProductSchema = new mongoose.Schema ({
 		ref: "Product",
 		required: true
 	},
-	unitPrice : { type : Number , default : 0 },
-	quantity :  { type : Number , default : 1 },
-	subtotal :  { type : Number , default : 1 }
+	// unitPrice : { type : Number , default : 0 },
+	quantity :  { type : Number , required: true }
+	// subtotal :  { type : Number , default : 1 }
 })
 
 const OrderProduct = mongoose.model( "OrderProduct" , OrderProductSchema );
@@ -18,7 +18,7 @@ const OrderProduct = mongoose.model( "OrderProduct" , OrderProductSchema );
 
 const OrderSchema = new mongoose.Schema({
 	
-	totalAmount : { type : Number , default : 0 }, 
+	// totalAmount : { type : Number , default : 0 }, 
 	userId : {
 		type : mongoose.Schema.Types.ObjectId,
 		ref: "User",

@@ -3,24 +3,25 @@ const Product = require("./../models/Product");
 
 module.exports.createOrder = (req,res) => {
 	const orderProduct = new OrderProduct ({
-		productId : req.body.productId
+		productId : req.body.productId,
+		quantity : req.body.quantity
 	})
 	const order = new Order ({
 		userId : req.user.id,
 		products : orderProduct
 	})
-	// const prodPrice = prod.price;
-
-	// // order.totalAmount +=prod.price
-
+	
 	orderProduct.save()
 	order.save()
-	// Product.findById(req.body.productId)
-	// .then(product => res.send(product))
-	.then(order => res.send(order))
-	// .then(()=> res.send(order.totalAmount +=product.price))
+	Product.findById(req.body.productId)
+	.then(product => res.send(product.price))
+	.then (order => {
+		Order.totalAmount +=product.price
+		Order.save()
+	})
 	.catch(err => res.send(err))
 };
+
 
 module.exports.getOrders = (req,res) => {
 	Order.find({userId: req.user.id})

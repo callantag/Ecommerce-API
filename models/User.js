@@ -7,9 +7,7 @@ const UserSchema = new mongoose.Schema({
 	email : { type : String , required : true, unique : true },
 	password : { type : String , required : true },
 	isAdmin : { type: Boolean , default : false },
-	mobileNo : { type : String , required : true },
-	history: { type: Array, default: []}
-	
+	mobileNo : { type : String , required : true }	
 });
 
 module.exports = mongoose.model( "User" , UserSchema );
