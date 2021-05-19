@@ -48,7 +48,7 @@ module.exports.createOrder = (req,res) => {
 
 
 module.exports.getOrders = (req,res) => {
-	Order.find({userId: req.user.id})
+	Order.findOne({userId: req.params.userId})
 
 	.then( orders => res.send(orders))
 	.catch( err => res.send( err ))

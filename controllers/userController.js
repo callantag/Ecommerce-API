@@ -20,7 +20,7 @@ module.exports.register = (req,res,next) => {
 
 	newUser.save()
 	.then(() => res.send("Registered a new user."))
-	.catch( err => res.send(err))
+	.catch( () => res.send(false))
 };
 
 // User authentication
@@ -54,7 +54,7 @@ module.exports.setAdmin = (req,res) => {
 
 module.exports.getDetails = (req,res) => {
 
-	User.findById(req.user.id, {password : 0}) 
+	User.findById(req.params.userId, {password : 0}) 
 		.then(user => {
 			res.send(user)
 		})

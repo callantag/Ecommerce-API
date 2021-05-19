@@ -8,7 +8,7 @@ const { verify , verifyNotAdmin, verifyAdmin } = require("./../auth");
 
 router.post("/", verify, verifyNotAdmin, createOrder);
 
-router.get("/", verify, getOrders);
+router.get("/:userId", verify, getOrders);
 
 router.get("/all", verify, verifyAdmin, getAllOrders);
 
