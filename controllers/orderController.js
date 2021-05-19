@@ -1,26 +1,50 @@
-const { Order , OrderProduct }  = require("./../models/Order");
+// const { Order , OrderProduct }  = require("./../models/Order");
+const Order  = require("./../models/Order");
 const Product = require("./../models/Product");
 
 module.exports.createOrder = (req,res) => {
-	const orderProduct = new OrderProduct ({
-		productId : req.body.productId,
-		quantity : req.body.quantity
+	Order.create({
+		userId: req.user.id,
+		productId: req.body.productId,
+		quantity: req.body.quantity
 	})
-	const order = new Order ({
-		userId : req.user.id,
-		products : orderProduct
+	.then(()=> {
+		return Order.findOne({userId: req.user.id})
 	})
-	
-	orderProduct.save()
-	order.save()
-	Product.findById(req.body.productId)
-	.then(product => res.send(product.price))
-	.then (order => {
-		Order.totalAmount +=product.price
-		Order.save()
-	})
+	.then((order)=>{
+		Product.findById(req.body.productId)
+		.then(product => {
+			let subtotalValue = product.price*req.body.quantity
+			order.totalAmount +=subtotalValue
+			order.products.push({
+				productId: req.body.productId,
+				quantity: req.body.quantity,
+				subtotal: subtotalValue
+			})
+			order.save()
+			.then((updatedOrder)=>{
+				res.send(updatedOrder)
+			})
+		})
+	}, {new:true})
 	.catch(err => res.send(err))
-};
+}
+
+
+// module.exports.createOrder = (req,res) => {
+// 	const orderProduct = new OrderProduct ({
+// 		productId : req.body.productId,
+// 		quantity : req.body.quantity
+// 	})
+// 	const order = new Order ({
+// 		userId : req.user.id,
+// 		products : orderProduct
+// 	})
+// 	orderProduct.save()
+// 	order.save()
+// 	.then(order => res.send(order))
+// 	.catch(err => res.send(err))
+// };
 
 
 module.exports.getOrders = (req,res) => {
@@ -35,43 +59,6 @@ module.exports.getAllOrders = (req,res) => {
 	.then( orders => res.send( orders ))
 	.catch( err => res.send( err ))
 }
-
-// Order.update(
-	//     {userId: req.user.id, "productId": req.body.productId},
-	//     {$inc: {"products.$.quantity": Order.quantity}}
-	// )
-// const updatedtotal = OrderProduct.aggregate([
-//   {
-//     $group: {
-//       _id:null,
-//       totalAmount: {
-//         $sum:"$subtotal"
-//       }
-//     }
-//   }
-// ])
-
-//totalAmount = {$sum:"$subtotal"}
-//quantity = count: {$sum: 1}
-// subtotal = Product.price * OrderProduct.quantity
-
-// Middleware that increases the quantity in product
-// exports.increaseQuantity = (req, res, next) => {
-// 	let bulkOps = req.body.order.products.map((item) => {
-// 		return {
-// 			updateOne: {
-// 				filter: { _id: item._id },
-// 				update: { $inc: { quantity: +item.quantity } }
-// 			}
-// 		};
-// 	});
-// 	Product.bulkWrite(bulkOps, {}, (error, products) => {
-// 		if (error) {
-// 			return res.send('Could not update product quantity');
-// 		}
-// 		next();
-// 	});
-// };
 
 
 // Non-admin User checkout (Create Order)
